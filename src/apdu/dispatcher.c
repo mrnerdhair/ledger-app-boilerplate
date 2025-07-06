@@ -31,6 +31,7 @@
 #include "get_app_name.h"
 #include "get_public_key.h"
 #include "sign_tx.h"
+#include "pairing_test.h"
 
 int apdu_dispatcher(const command_t *cmd) {
     LEDGER_ASSERT(cmd != NULL, "NULL cmd");
@@ -42,6 +43,12 @@ int apdu_dispatcher(const command_t *cmd) {
     buffer_t buf = {0};
 
     switch (cmd->ins) {
+        case PAIRING_TEST:
+            if (cmd->p1 != 0 || cmd->p2 != 0) {
+                return io_send_sw(SW_WRONG_P1P2);
+            }
+
+            return handler_pairing_test();
         case GET_VERSION:
             if (cmd->p1 != 0 || cmd->p2 != 0) {
                 return io_send_sw(SW_WRONG_P1P2);

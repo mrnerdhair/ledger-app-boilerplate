@@ -12,6 +12,7 @@
  * Enumeration with expected INS of APDU commands.
  */
 typedef enum {
+    PAIRING_TEST = 0x01,
     GET_VERSION = 0x03,     /// version of the application
     GET_APP_NAME = 0x04,    /// name of the application
     GET_PUBLIC_KEY = 0x05,  /// public key of corresponding BIP32 path
